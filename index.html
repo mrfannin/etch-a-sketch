@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+
+        <h1>Etch-A-Sketch</h1>
+
+        <div id="sketch-container"></div>
+
+        <div id="content">
+
+            <button type="button" id="create-grid-button">Create Grid</button>
+
+            <form id="etch-options">
+                <p>Etch-A-Sketch Options</p>
+                <div id="options-section">
+                    <div class="option-type">
+                        <label for="option-none">None</label>
+                        <input type="radio" id="option-none" name="options" checked>
+                    </div>
+
+                    <div class="option-type">
+                        <label for="option-color">Random Colors</label>
+                        <input type="radio" id="option-color" name="options">
+                    </div>
+
+                    <div class="option-type">
+                        <label for="option-gradient">Gradient</label>
+                        <input type="radio" id="option-gradient" name="options">
+                    </div>
+
+                    <div class="option-type">
+                        <label for="option-erase">Erase</label>
+                        <input type="radio" id="option-erase" name="options">
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+        <script>
+
+            // creates a new grid, deleting the old one if needed
+            function createGrid() {
+                if (sketchContainer.childElementCount > 0)
+                {
+                    while (sketchContainer.firstChild)
+                    {
+                        sketchContainer.firstChild.remove();
+                    }
+                }
+
+                let gridSize = prompt("How many squares per side in the grid?", 16);
+
+                let gridSquares = [];
+
+                let gridWidth = getComputedStyle(sketchContainer).width;
+                let squareSize = parseInt(gridWidth.match(/\d+/)) / gridSize;
+
+                for (let i = 0; i < gridSize * gridSize; i++)
+                {
+                    let gridSquare = document.createElement("div");
+
+                    gridSquare.style.cssText = `width: ${squareSize}px;height: ${squareSize}px;background-color: rgb(100%,100%,100%)`;
+
+                    gridSquare.addEventListener("mouseenter", colorSquare);
+
+                    sketchContainer.appendChild(gridSquare);
+                    gridSquares.push(gridSquare);
+                }
+
+                console.log(sketchContainer.childElementCount);
+            }
+
+            // takes into account the option checked and changes the background color of the square
+            function colorSquare(e) {
+                if (noneOption.checked)
+                {
+                    e.target.style.backgroundColor = "rgb(0,0,0)";
+                }
+                else if (colorOption.checked)
+                {
+                    e.target.style.backgroundColor = getRandomColor();
+                }
+                else if (gradientOption.checked) {
+                    let currentColor = e.target.style.backgroundColor;
+                    let currentPercent = Math.trunc((currentColor.match(/\d+/) / 255) * 100);
+                    let newPercent = currentPercent - 10;
+                    e.target.style.backgroundColor = `rgb(${newPercent}%,${newPercent}%,${newPercent}%)`;
+                }
+                else {
+                    e.target.style.backgroundColor = "rgb(100%,100%,100%)";
+                }
+            }
+
+            function getRandomColor() {
+                return `rgb(${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)})`;
+            }
+            
+            const sketchContainer = document.querySelector("#sketch-container");
+            const createGridButton = document.querySelector("#create-grid-button");
+
+            const noneOption = document.querySelector("#option-none");
+            const colorOption = document.querySelector("#option-color");
+            const gradientOption = document.querySelector("#option-gradient");
+            const eraseOption = document.querySelector("#option-erase");
+
+            createGridButton.addEventListener("click", createGrid);
+        </script>
+    </body>
+</html>

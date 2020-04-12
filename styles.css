@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: whitesmoke;
+    font-family: 'Inter', sans-serif;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 30px;
+}
+
+#sketch-container {
+    margin: auto;
+    margin-top: 25px;
+
+    width: 640px;
+    height: 640px;
+
+    border: 1px solid lightgray;
+
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button {
+    width: 110px;
+    height: 35px;
+    font-size: 1em;
+    margin-top: 20px;
+    background-color: lightslategray;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+}
+
+button:hover {
+    background-color: rgb(156, 178, 201);
+}
+
+button:active {
+    background-color: rgb(134, 153, 172);
+}
+
+#etch-options {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    align-items: center;
+}
+
+#etch-options p {
+    font-size: 1.2em;
+    border-bottom: 1px black solid;
+}
+
+#options-section {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    height: 90px;
+    justify-content: space-between;
+}
+
+.option-type {
+    display: flex;
+    width: 150px;
+
+    justify-content: space-between;
+}
+
+.option-type label {
+    line-height: 11px;
+}
